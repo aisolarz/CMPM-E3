@@ -5,7 +5,7 @@ const spin = document.querySelector<HTMLButtonElement>("#spin")!;
 const face = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 face.setAttribute("viewBox", "0 0 200 200");
 face.setAttribute("role", "img");
-face.setAttribute("aria-label", "A neutral face");
+face.setAttribute("aria-label", "A face covered in freckles");
 
 const head = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
 head.setAttribute("cx", "100");
@@ -58,6 +58,39 @@ mouth.setAttribute("stroke", "#302c29");
 mouth.setAttribute("stroke-width", "4");
 mouth.setAttribute("stroke-linecap", "round");
 face.append(mouth);
+
+//branch freckles.
+function addFreckle(x: number, y: number) {
+  const freckle = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "circle",
+  );
+  freckle.setAttribute("cx", String(x));
+  freckle.setAttribute("cy", String(y));
+  freckle.setAttribute("r", "2");
+  freckle.setAttribute("fill", "#b5651d");
+  face.insertBefore(freckle, leftEye); //to make sure freckles are under eye
+}
+
+//creates a spread of freckles. its more dense towards the middle and thins out
+function addFreckleSpiral(
+  centerX: number,
+  centerY: number,
+  maxDistance: number,
+  count: number,
+) {
+  for (let i = 0; i < count; i++) {
+    const angle = i * 2.4;
+    const distance = maxDistance * (i / count);
+    const x = centerX + distance * Math.cos(angle);
+    const y = centerY + distance * Math.sin(angle);
+    addFreckle(x, y);
+  }
+}
+
+addFreckleSpiral(58, 112, 30, 50);
+addFreckleSpiral(142, 112, 30, 50);
+addFreckleSpiral(100, 105, 10, 20);
 
 portrait.append(face);
 

@@ -12,4 +12,4 @@ For the 2 images im going to add a fedora, and a bow tie. If I have time I also 
 
 # c - color and curves
 
-Im probably going to try to create a gradient background. Then for the curve I want to make a mustache above the mouth. I want it to look elegant and old fashioned ;D
+Im probably going to try to create a gradient background. Then for the curve I want to make a mustache above the mouth. I want it to look jolly.

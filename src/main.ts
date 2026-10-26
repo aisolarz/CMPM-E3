@@ -1,3 +1,8 @@
+// @deno-types="./asset-url.d.ts"
+import fedoraUrl from "./assets/black-fedora.png?no-inline";
+// @deno-types="./asset-url.d.ts"
+import bowTieaUrl from "./assets/bow-tie.png?no-inline";
+
 const portrait = document.querySelector<HTMLDivElement>("#portrait")!;
 const spin = document.querySelector<HTMLButtonElement>("#spin")!;
 
@@ -5,7 +10,7 @@ const spin = document.querySelector<HTMLButtonElement>("#spin")!;
 const face = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 face.setAttribute("viewBox", "0 0 200 200");
 face.setAttribute("role", "img");
-face.setAttribute("aria-label", "A neutral face");
+face.setAttribute("aria-label", "Fedora and Bow Tie");
 
 const head = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
 head.setAttribute("cx", "100");
@@ -58,6 +63,33 @@ mouth.setAttribute("stroke", "#302c29");
 mouth.setAttribute("stroke-width", "4");
 mouth.setAttribute("stroke-linecap", "round");
 face.append(mouth);
+
+//img credit: https://www.freeiconspng.com/img/34104
+
+const fedoraImage = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "image",
+);
+
+fedoraImage.setAttribute("href", fedoraUrl);
+fedoraImage.setAttribute("x", "60");
+fedoraImage.setAttribute("y", "0");
+fedoraImage.setAttribute("width", "80");
+fedoraImage.setAttribute("height", "33");
+face.append(fedoraImage);
+
+//img credit: https://www.vecteezy.com/free-png/bowtie
+const bowTieImage = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "image",
+);
+
+bowTieImage.setAttribute("href", bowTieaUrl);
+bowTieImage.setAttribute("x", "72");
+bowTieImage.setAttribute("y", "158");
+bowTieImage.setAttribute("width", "56");
+bowTieImage.setAttribute("height", "53");
+face.append(bowTieImage);
 
 portrait.append(face);
 

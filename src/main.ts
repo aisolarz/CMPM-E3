@@ -1,12 +1,43 @@
 const portrait = document.querySelector<HTMLDivElement>("#portrait")!;
 const spin = document.querySelector<HTMLButtonElement>("#spin")!;
 
-// The prototype grew inline. Keep it this way until the refactoring checkpoint.
+// Builds the whole face and returns the finished SVG element.
 function buildFace() {
   const face = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   face.setAttribute("viewBox", "0 0 200 200");
   face.setAttribute("role", "img");
-  face.setAttribute("aria-label", "A neutral face");
+  face.setAttribute("aria-label", "Glowing face with mustache");
+
+  //the gradient
+  const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+  const glow = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "radialGradient",
+  );
+  glow.setAttribute("id", "head-glow");
+  glow.setAttribute("cx", "50%");
+  glow.setAttribute("cy", "50%");
+  glow.setAttribute("r", "50%");
+
+  const glowCenter = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "stop",
+  );
+
+  glowCenter.setAttribute("offset", "0%");
+  glowCenter.setAttribute("stop-color", "#fff3b0");
+  glow.append(glowCenter);
+
+  const glowEdge = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "stop",
+  );
+  glowEdge.setAttribute("offset", "100%");
+  glowEdge.setAttribute("stop-color", "#f29e4c");
+  glow.append(glowEdge);
+
+  defs.append(glow);
+  face.append(defs);
 
   const head = document.createElementNS(
     "http://www.w3.org/2000/svg",
@@ -16,7 +47,7 @@ function buildFace() {
   head.setAttribute("cy", "100");
   head.setAttribute("rx", "78");
   head.setAttribute("ry", "86");
-  head.setAttribute("fill", "#f3cf87");
+  head.setAttribute("fill", "url(#head-glow)");
   head.setAttribute("stroke", "#302c29");
   head.setAttribute("stroke-width", "4");
   face.append(head);
@@ -62,6 +93,21 @@ function buildFace() {
   mouth.setAttribute("stroke-width", "4");
   mouth.setAttribute("stroke-linecap", "round");
   face.append(mouth);
+
+  const mustache = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "path",
+  );
+  mustache.setAttribute(
+    "d",
+    "M 100 126 C 90 118 76 118 68 128 C 64 133 58 130 60 124 " +
+      "M 100 126 C 110 118 124 118 132 128 C 136 133 142 130 140 124",
+  );
+  mustache.setAttribute("fill", "none");
+  mustache.setAttribute("stroke", "#302c29");
+  mustache.setAttribute("stroke-width", "5");
+  mustache.setAttribute("stroke-linecap", "round");
+  face.append(mustache);
 
   return face;
 }
